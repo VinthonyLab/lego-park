@@ -10,23 +10,36 @@
 
 using namespace std;
 
+void showXYZ(){
+	glBegin(GL_LINES);
+		glColor3f(1.0,0.0,0.0); //x
+		glVertex3f(0.0,0.0,0.0);
+		glVertex3f(0.5,0.0,0.0);
+
+		glColor3f(0.0,1.0,0.0); //y
+		glVertex3f(0.0,0.0,0.0);
+		glVertex3f(0.0,0.5,0.0);
+
+		glColor3f(0.0,0.0,1.0); //z
+		glVertex3f(0.0,0.0,0.0);
+		glVertex3f(0.0,0.0,0.5);
+	glEnd();
+}
+
 void displayHandler(){
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
-
-	glBegin(GL_LINE);
-		glVertex3f(0.3,0.3,-0.2);
-		glVertex3f(0.5,0.7,-0.4);
-	glEnd();
+	
+	showXYZ();
 
 	glutSwapBuffers();
 }
 
-void reshapeHandler(int width,int height);
+void reshapeHandler(int width,int height){};
 
-void keyboardEventHandler(unsigned char key,int x,int y);
+void keyboardEventHandler(unsigned char key,int x,int y){};
 
-void idelHandler();
+void idelHandler(){};
 
 void init(){
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
