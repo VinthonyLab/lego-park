@@ -5,8 +5,9 @@ template <class vec3> Stack<vec3>::Stack(){
 }
 
 template <class vec3> Stack<vec3>::~Stack(){
-	//delete the item that not create with `new` will cause a `warning C4154` problem.
-	//delete[] item;
+	//if using `delete[] item` deleting the item 
+    // will cause a `warning C4154` problem.
+	// because item array was not create with `new` 
 	for(int i = 0; i <= top;i++){
 		delete item[i];
 	}
