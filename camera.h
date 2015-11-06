@@ -1,4 +1,5 @@
-
+#pragma once
+#include <GL\glut.h>
 
 struct vec3{
 	GLfloat x;

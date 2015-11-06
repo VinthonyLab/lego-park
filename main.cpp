@@ -46,10 +46,15 @@ void reshapeHandler(int width,int height){};
 
 void keyboardEventHandler(unsigned char key,int x,int y){};
 void mouseEventHandler(int x,int y){
-		x < lastMouseX ? camera.x++ : camera.x--;
-	    lastMouseX = x;
-		y < lastMouseY ? camera.y++ : camera.y--;
-		lastMouseY = y;
+		printf("current mouse position:%d,%d",x,y);
+		if(x != lastMouseX){
+			x < lastMouseX ? camera.x++ : camera.x--;
+			lastMouseX = x;
+		}
+		if(y != lastMouseY){
+			y < lastMouseY ? camera.y++ : camera.y--;
+			lastMouseY = y;
+		}
 		setCamera(camera,center,up,zNear,zFar);
 		glutPostRedisplay();
 };

@@ -71,11 +71,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Lego.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VecStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="constant.h" />
+    <ClInclude Include="Lego.h" />
+    <ClInclude Include="VecStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
