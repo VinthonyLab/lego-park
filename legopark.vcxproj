@@ -70,19 +70,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="fileLoader.cpp" />
-    <ClCompile Include="Lego.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="constant.h" />
-    <ClInclude Include="fileLoader.h" />
-    <ClInclude Include="Lego.h" />
-    <ClInclude Include="VecStack.hpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="lego_people_obj\body_kissana_medsis.jpg" />
     <None Include="lego_people_obj\body_zak1.jpg" />
     <None Include="lego_people_obj\face_haryach.jpg" />
@@ -100,6 +87,19 @@
     <Object Include="lego_people_obj\lego_spaceship.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\camera.h" />
+    <ClInclude Include="source\constant.h" />
+    <ClInclude Include="source\fileLoader.h" />
+    <ClInclude Include="source\Lego.h" />
+    <ClInclude Include="source\VecStack.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\camera.cpp" />
+    <ClCompile Include="source\fileLoader.cpp" />
+    <ClCompile Include="source\Lego.cpp" />
+    <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
