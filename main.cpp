@@ -1,11 +1,10 @@
-
+#pragma once
 #include <iostream>
 
 #include <GL\GLUT.h>
 #include <GL\GLU.h>
 #include <GL\GL.h>
 
-#include "constant.h"
 #include "camera.h"
 
 using namespace std;

@@ -71,15 +71,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="fileLoader.cpp" />
     <ClCompile Include="Lego.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="VecStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="constant.h" />
+    <ClInclude Include="fileLoader.h" />
     <ClInclude Include="Lego.h" />
-    <ClInclude Include="VecStack.h" />
+    <ClInclude Include="VecStack.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lego_people_obj\body_kissana_medsis.jpg" />
+    <None Include="lego_people_obj\body_zak1.jpg" />
+    <None Include="lego_people_obj\face_haryach.jpg" />
+    <None Include="lego_people_obj\face_kissana_medsis.jpg" />
+    <None Include="lego_people_obj\face_Nikita.jpg" />
+    <None Include="lego_people_obj\face_zak.jpg" />
+    <None Include="lego_people_obj\halat.jpg" />
+    <None Include="lego_people_obj\Haryach.JPG" />
+    <None Include="lego_people_obj\lego_poeople_obj.mtl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="lego_people_obj\lego_poeople_obj.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="lego_people_obj\lego_spaceship.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </Object>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

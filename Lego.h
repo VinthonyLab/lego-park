@@ -1,7 +1,11 @@
 #pragma once
 
-#include "camera.h"
-#include "VecStack.h"
+#include "constant.h"
+//wired problem£¬ can't find source file of VecStack.h, could fixed
+// it with include vecstack.cpp
+// maybe it's because i recreate this two file.
+// but i using .hpp to hybrid the .h and .cpp to avoid this problem.
+#include "VecStack.hpp"
 
 class Lego
 {
@@ -15,10 +19,10 @@ private:
 public:
 	Lego(int x,int y,int z);
 	~Lego(void);
-	void move(vec3 v);
-	void rotate(vec3 v);
-	void setColor(vec3 color);
+	Lego* move(vec3 v);
+	Lego* rotate(vec3 v);
+	Lego* setColor(vec3 color);
 	vec3 getColor();
-	void reflash();
+	Lego* reflash();
 };
 

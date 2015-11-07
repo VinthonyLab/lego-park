@@ -1,7 +1,6 @@
 #include "Lego.h"
-//wired problem£¬ can't find source file of VecStack.h, could fixed
-// it with include vecstack.cpp
-#include "VecStack.cpp"
+
+
 
 Lego::Lego(int x,int y,int z)
 {
@@ -12,25 +11,28 @@ Lego::Lego(int x,int y,int z)
 	// generator the lego cube here
 }
 
-void Lego::move(vec3 v){
+Lego* Lego::move(vec3 v){
 	position = v;
 	//translate the position of lego cube
+	return this;
 }
-void Lego::rotate(vec3 v){
+Lego* Lego::rotate(vec3 v){
 	//rotate the cube
+	return this;
 }
-void Lego::setColor(vec3 c){
+Lego* Lego::setColor(vec3 c){
 	//
 	color = c;
+	return this;
 }
 vec3 Lego::getColor(){
 	// get the color
 
 	return color;
 }
-void Lego::reflash(){
+Lego* Lego::reflash(){
 	// reflash the new position and translation of lego
-
+	return this;
 }
 
 Lego::~Lego(){

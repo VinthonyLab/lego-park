@@ -24,7 +24,7 @@
     <ClCompile Include="Lego.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VecStack.cpp">
+    <ClCompile Include="fileLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,8 +38,48 @@
     <ClInclude Include="Lego.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VecStack.h">
+    <ClInclude Include="fileLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VecStack.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lego_people_obj\body_kissana_medsis.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\body_zak1.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\face_haryach.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\face_kissana_medsis.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\face_Nikita.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\face_zak.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\halat.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\Haryach.JPG">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lego_people_obj\lego_poeople_obj.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="lego_people_obj\lego_poeople_obj.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="lego_people_obj\lego_spaceship.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
   </ItemGroup>
 </Project>
