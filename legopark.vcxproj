@@ -37,7 +37,7 @@
     <EmbedManifest>true</EmbedManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -51,7 +51,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glut32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glut32.lib;glu32.lib;libSOIL.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,28 +78,30 @@
     <None Include="lego_people_obj\face_zak.jpg" />
     <None Include="lego_people_obj\halat.jpg" />
     <None Include="lego_people_obj\Haryach.JPG" />
-    <None Include="lego_people_obj\lego_poeople_obj.mtl" />
+    <None Include="lego_people_obj\lego_man.mtl" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="lego_people_obj\lego_poeople_obj.obj">
+    <Object Include="lego_people_obj\lego_man.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Object>
     <Object Include="lego_people_obj\lego_spaceship.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Object>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\constant.h" />
-    <ClInclude Include="source\fileLoader.h" />
     <ClInclude Include="source\Lego.h" />
+    <ClInclude Include="source\tiny_obj_loader.h" />
     <ClInclude Include="source\VecStack.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\camera.cpp" />
-    <ClCompile Include="source\fileLoader.cpp" />
     <ClCompile Include="source\Lego.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\tiny_obj_loader.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

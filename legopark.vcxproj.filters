@@ -39,15 +39,15 @@
     <None Include="lego_people_obj\Haryach.JPG">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="lego_people_obj\lego_poeople_obj.mtl">
+    <None Include="lego_people_obj\lego_man.mtl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="lego_people_obj\lego_poeople_obj.obj">
+    <Object Include="lego_people_obj\lego_spaceship.obj">
       <Filter>Resource Files</Filter>
     </Object>
-    <Object Include="lego_people_obj\lego_spaceship.obj">
+    <Object Include="lego_people_obj\lego_man.obj">
       <Filter>Resource Files</Filter>
     </Object>
   </ItemGroup>
@@ -58,13 +58,13 @@
     <ClInclude Include="source\constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\fileLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\Lego.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\VecStack.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tiny_obj_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -72,13 +72,13 @@
     <ClCompile Include="source\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\fileLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\Lego.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tiny_obj_loader.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

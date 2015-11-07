@@ -19,3 +19,8 @@ a lego park base on opengl and brain holes.
 ### ATTENTION:
 
 when creating a new file ,you need to specific the file to the `source` folder. I tried to make it automaticly but  it doesn't work in vs2010.
+
+
+### Using library:
+
+1. [`tiny obj loader` to load obj file](https://github.com/syoyo/tinyobjloader)
