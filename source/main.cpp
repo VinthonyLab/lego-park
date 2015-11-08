@@ -5,16 +5,22 @@
 #include <GL\GLU.h>
 #include <GL\GL.h>
 #include "camera.h"
+#include "loader.hpp"
 #include "tiny_obj_loader.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.hpp"
 using namespace std;
 
-vec3 camera = {0,0,30};
+vec3 camera = {20,0,0};
 vec3 center = {0,0,0};
 vec3 up = {0,1,0};
 GLfloat zNear = 0.1;
 GLfloat zFar = 400;
+int lastMouseX;
+int lastMouseY;
 string LEGO_MAN = "./lego_people_obj/lego_man.obj";
 string BASE = "./lego_people_obj/";
+
 vector<tinyobj::shape_t> shapes;
 vector<tinyobj::material_t> materials;
 
@@ -29,19 +35,35 @@ bool objLoader(){
 	
 	return true;
 }
+
 void drawLegoMan(){
-	
+	glEnable(GL_LIGHTING); 
+	glEnable(GL_LIGHT0);
+	GLfloat lightpos[] = {.5, 1., 1., 0.};
+	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 	for (size_t i = 0; i < shapes.size(); i++) {
 		vector<int> m_id = shapes[i].mesh.material_ids;
 		vector<char32_t> indices = shapes[i].mesh.indices;
 		vector<float> positions = shapes[i].mesh.positions;
 		vector<float> normals = shapes[i].mesh.normals;
 		vector<float> texture = shapes[i].mesh.texcoords;
+		string name = shapes[i].name;
+		int imageWidth;
+		int imageHeight;
+		int pix;
+		GLuint Tid;
+		if(name != "legocharacter1") continue;
 		glBegin(GL_TRIANGLES);
 		for(size_t f = 0; f <indices.size()/3; f++){
-			materials[m_id[f]];
+			string Jname = BASE + materials[m_id[f]].diffuse_texname;
+			unsigned char* data = stbi_load(Jname.c_str(),&imageWidth,&imageHeight,&pix,0);
+			if(data){
+				glGenTextures(1,&Tid);
+				glBindTexture(GL_TEXTURE_2D,Tid);	
+				glTexImage2D(GL_TEXTURE_2D,0,3,imageWidth,imageHeight,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+			}
 			for (size_t z = 0; z<3;z++){ // build a trangle
-				int index = indices[3*f+z]*3;
+				int index = indices[3*f+z]*3; //get the current Index of the vertex
 				glNormal3f(
 					normals[index],
 					normals[index+1],
@@ -52,17 +74,18 @@ void drawLegoMan(){
 					positions[index+1],
 					positions[index+2]
 				);
-				//glTexCoord2f(2*index,2*index+1);
+				glMaterialf(GL_FRONT,GL_AMBIENT,materials[m_id[f]].ambient[z]);
+				glMaterialf(GL_FRONT,GL_DIFFUSE,materials[m_id[f]].diffuse[z]);
+				glMaterialf(GL_FRONT,GL_EMISSION,materials[m_id[f]].emission[z]);
+				glMaterialf(GL_FRONT,GL_SPECULAR,materials[m_id[f]].specular[z]);
+				glMaterialf(GL_FRONT,GL_SHININESS,materials[m_id[f]].shininess);
+				//glTexCoord2f(texture[2*f],texture[2*f+1]);
 			}
-			
 		}
 		glEnd();
 	}
 	
 }
-
-int lastMouseX;
-int lastMouseY;
 void showXYZ(){
 	glBegin(GL_LINES);
 		glColor3f(1.0,0.0,0.0); //x
@@ -87,9 +110,6 @@ void displayHandler(){
 	drawLegoMan();
 	glutSwapBuffers();
 }
-
-void reshapeHandler(int width,int height){};
-
 void keyboardEventHandler(unsigned char key,int x,int y){};
 void mouseEventHandler(int x,int y){
 		printf("current mouse position:%d,%d",x,y);
@@ -103,6 +123,10 @@ void mouseEventHandler(int x,int y){
 		}
 		setCamera(camera,center,up,zNear,zFar);
 		glutPostRedisplay();
+};
+
+void reshapeHandler(int width,int height){
+
 };
 void idelHandler(){};
 

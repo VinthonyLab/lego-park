@@ -67,6 +67,15 @@
     <ClInclude Include="source\tiny_obj_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\stb_image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EventHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\loader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\camera.cpp">

@@ -51,7 +51,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glut32.lib;glu32.lib;libSOIL.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glut32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,7 +93,10 @@
   <ItemGroup>
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\constant.h" />
+    <ClInclude Include="source\EventHandler.hpp" />
     <ClInclude Include="source\Lego.h" />
+    <ClInclude Include="source\loader.hpp" />
+    <ClInclude Include="source\stb_image.hpp" />
     <ClInclude Include="source\tiny_obj_loader.h" />
     <ClInclude Include="source\VecStack.hpp" />
   </ItemGroup>
@@ -102,6 +105,13 @@
     <ClCompile Include="source\Lego.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\tiny_obj_loader.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
