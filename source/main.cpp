@@ -37,49 +37,89 @@ bool objLoader(){
 }
 
 void drawLegoMan(){
+	map<int,unsigned char*> images;
+	
+	int imageWidth;
+	int imageHeight;
+	int pix;
+	int lastTexture = -1;
+	GLuint Tid[20];
 	glEnable(GL_LIGHTING); 
 	glEnable(GL_LIGHT0);
-	GLfloat lightpos[] = {.5, 1., 1., 0.};
+	GLfloat lightpos[] = {0.0, 1.0, 0.0, 0.0};
+	GLfloat light_KA[] = {1.0,1.0,1.0,1.0};
+	GLfloat light_KD[] = {1.0,1.0,1.0,1.0};
+	GLfloat light_KS[] = {1.0,1.0,1.0,1.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_KA);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_KD);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_KS);
+	glGenTextures(20,Tid);
+	for(size_t x = 0; x < materials.size();x++){
+			string Jname = BASE + materials[x].diffuse_texname; // filename
+			unsigned char* data = stbi_load(Jname.c_str(),&imageWidth,&imageHeight,&pix,3);
+			if(data!=nullptr){
+				printf("load texure:(width:%d,height:%d,length:%d):%s\n",imageWidth,imageHeight,pix,Jname.c_str());
+				 glBindTexture(GL_TEXTURE_2D,Tid[x]);	
+				 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+				 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+				 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+				 glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+				 glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE);
+				 glTexImage2D(GL_TEXTURE_2D,0,3,imageWidth,imageHeight,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+			}
+		}
+	glEnable(GL_TEXTURE_2D);
+
 	for (size_t i = 0; i < shapes.size(); i++) {
 		vector<int> m_id = shapes[i].mesh.material_ids;
 		vector<char32_t> indices = shapes[i].mesh.indices;
+		vector<char32_t> normal_indices = shapes[i].mesh.normal_indices;
+		vector<char32_t> texcoord_indices = shapes[i].mesh.texcoord_indices;
 		vector<float> positions = shapes[i].mesh.positions;
 		vector<float> normals = shapes[i].mesh.normals;
 		vector<float> texture = shapes[i].mesh.texcoords;
 		string name = shapes[i].name;
-		int imageWidth;
-		int imageHeight;
-		int pix;
-		GLuint Tid;
-		if(name != "legocharacter1") continue;
-		glBegin(GL_TRIANGLES);
+		//if(name != "legocharacter3") continue;
+		
 		for(size_t f = 0; f <indices.size()/3; f++){
-			string Jname = BASE + materials[m_id[f]].diffuse_texname;
-			unsigned char* data = stbi_load(Jname.c_str(),&imageWidth,&imageHeight,&pix,0);
-			if(data){
-				glGenTextures(1,&Tid);
-				glBindTexture(GL_TEXTURE_2D,Tid);	
-				glTexImage2D(GL_TEXTURE_2D,0,3,imageWidth,imageHeight,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+			int mID = m_id[f];
+			if(Tid[mID]){
+				glBindTexture(GL_TEXTURE_2D,Tid[mID]);
+				lastTexture = Tid[mID];
+			}else{
+				if(lastTexture != -1) 
+					glBindTexture(GL_TEXTURE_2D,lastTexture);
 			}
+			glBegin(GL_TRIANGLES);
 			for (size_t z = 0; z<3;z++){ // build a trangle
-				int index = indices[3*f+z]*3; //get the current Index of the vertex
+				int Vindex = indices[3*f+z]*3; //get the current Index of the vertex
+				int Nindex = normal_indices[3*f+z]*3;
+				int Tindex = texcoord_indices[3*f+z]*2;
 				glNormal3f(
-					normals[index],
-					normals[index+1],
-					normals[index+2]
+					normals[Vindex],
+					normals[Vindex+1],
+					normals[Vindex+2]
 					);
+				if(texture.size()/2 == indices.size()/3){
+					glTexCoord2f(
+							texture[Tindex],
+							texture[Tindex+1]
+							);
+				}
 				glVertex3f(
-					positions[index],
-					positions[index+1],
-					positions[index+2]
+					positions[Nindex],
+					positions[Nindex+1],
+					positions[Nindex+2]
 				);
-				glMaterialf(GL_FRONT,GL_AMBIENT,materials[m_id[f]].ambient[z]);
-				glMaterialf(GL_FRONT,GL_DIFFUSE,materials[m_id[f]].diffuse[z]);
-				glMaterialf(GL_FRONT,GL_EMISSION,materials[m_id[f]].emission[z]);
-				glMaterialf(GL_FRONT,GL_SPECULAR,materials[m_id[f]].specular[z]);
-				glMaterialf(GL_FRONT,GL_SHININESS,materials[m_id[f]].shininess);
-				//glTexCoord2f(texture[2*f],texture[2*f+1]);
+				
+				glMaterialf(GL_FRONT_AND_BACK,GL_AMBIENT,materials[mID].ambient[z]);
+				glMaterialf(GL_FRONT_AND_BACK,GL_DIFFUSE,materials[mID].diffuse[z]);
+				glMaterialf(GL_FRONT_AND_BACK,GL_EMISSION,materials[mID].emission[z]);
+				glMaterialf(GL_FRONT_AND_BACK,GL_SPECULAR,materials[mID].specular[z]);
+				glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,materials[mID].shininess);
+				
+				
 			}
 		}
 		glEnd();
@@ -135,7 +175,6 @@ void init(){
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
-	glEnable(GL_TEXTURE_2D);
 	setCamera(camera,center,up,zNear,zFar);
 	objLoader();
 }
@@ -154,7 +193,7 @@ int main(int argc,char * argv[])
 	glutReshapeFunc(&reshapeHandler);
 	glutKeyboardFunc(&keyboardEventHandler);
 	glutIdleFunc(&idelHandler);
-	glutMotionFunc(&mouseEventHandler);
+	//glutMotionFunc(&mouseEventHandler);
 	glutMainLoop();
 
 	return 0;

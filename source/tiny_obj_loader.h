@@ -26,13 +26,10 @@ typedef struct {
   // illumination model (see http://www.fileformat.info/format/material/)
   int illum;
 
-  std::string ambient_texname;            // map_Ka
-  std::string diffuse_texname;            // map_Kd
-  std::string specular_texname;           // map_Ks
-  std::string specular_highlight_texname; // map_Ns
-  std::string bump_texname;               // map_bump, bump
-  std::string displacement_texname;       // disp
-  std::string alpha_texname;              // map_d
+  std::string ambient_texname;
+  std::string diffuse_texname;
+  std::string specular_texname;
+  std::string normal_texname;
   std::map<std::string, std::string> unknown_parameter;
 } material_t;
 
@@ -40,7 +37,9 @@ typedef struct {
   std::vector<float> positions;
   std::vector<float> normals;
   std::vector<float> texcoords;
-  std::vector<unsigned int> indices;
+  std::vector<unsigned int> indices; // indices for vertex
+  std::vector<unsigned int> normal_indices; // indices for normal
+  std::vector<unsigned int> texcoord_indices; // indices for texcoord
   std::vector<int> material_ids; // per-mesh material ID
 } mesh_t;
 

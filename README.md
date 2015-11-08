@@ -24,3 +24,4 @@ when creating a new file ,you need to specific the file to the `source` folder. 
 ### Using library:
 
 1. [`tiny obj loader` to load obj file](https://github.com/syoyo/tinyobjloader)
+2. [`stb_image` to load image file of texture](https://github.com/nothings/stb)

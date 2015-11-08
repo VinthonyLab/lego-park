@@ -5,8 +5,6 @@
 //
 
 //
-// version 0.9.14: Support specular highlight, bump, displacement and alpha map(#53)
-// version 0.9.13: Report "Material file not found message" in `err`(#46)
 // version 0.9.12: Fix groups being ignored if they have 'usemtl' just before 'g' (#44)
 // version 0.9.11: Invert `Tr` parameter(#43)
 // version 0.9.10: Fix seg fault on windows.
@@ -30,7 +28,6 @@
 #include <cassert>
 #include <cmath>
 #include <cstddef>
-#include <cctype>
 
 #include <string>
 #include <vector>
@@ -269,7 +266,7 @@ static inline void parseFloat3(float &x, float &y, float &z,
   z = parseFloat(token);
 }
 
-// Parse triples: i, i/j/k, i//k, i/j
+// Parse triples: i, i/j/k, i//k, i/j ,i//j//k
 static vertex_index parseTriple(const char *&token, int vsize, int vnsize,
                                 int vtsize) {
   vertex_index vi(-1);
@@ -303,14 +300,14 @@ static vertex_index parseTriple(const char *&token, int vsize, int vnsize,
   return vi;
 }
 
-static unsigned int
-updateVertex(std::map<vertex_index, unsigned int> &vertexCache,
+static vertex_index
+updateVertex(std::map<vertex_index, vertex_index> &vertexCache,
              std::vector<float> &positions, std::vector<float> &normals,
              std::vector<float> &texcoords,
              const std::vector<float> &in_positions,
              const std::vector<float> &in_normals,
              const std::vector<float> &in_texcoords, const vertex_index &i) {
-  const std::map<vertex_index, unsigned int>::iterator it = vertexCache.find(i);
+  const std::map<vertex_index, vertex_index>::iterator it = vertexCache.find(i);
 
   if (it != vertexCache.end()) {
     // found cache
@@ -334,10 +331,14 @@ updateVertex(std::map<vertex_index, unsigned int> &vertexCache,
     texcoords.push_back(in_texcoords[2 * i.vt_idx + 1]);
   }
 
-  unsigned int idx = static_cast<unsigned int>(positions.size() / 3 - 1);
-  vertexCache[i] = idx;
+ unsigned int v_idx = static_cast<unsigned int>(positions.size() / 3 - 1);
+ unsigned int vn_idx = static_cast<unsigned int>(normals.size() / 3 - 1);
+ unsigned int vt_idx = static_cast<unsigned int>(texcoords.size() / 2 - 1);
+  vertexCache[i].v_idx = v_idx;
+  vertexCache[i].vn_idx = vn_idx;
+  vertexCache[i].vt_idx = vt_idx;
 
-  return idx;
+  return vertexCache[i];
 }
 
 void InitMaterial(material_t &material) {
@@ -345,10 +346,7 @@ void InitMaterial(material_t &material) {
   material.ambient_texname = "";
   material.diffuse_texname = "";
   material.specular_texname = "";
-  material.specular_highlight_texname = "";
-  material.bump_texname = "";
-  material.displacement_texname = "";
-  material.alpha_texname = "";
+  material.normal_texname = "";
   for (int i = 0; i < 3; i++) {
     material.ambient[i] = 0.f;
     material.diffuse[i] = 0.f;
@@ -364,7 +362,7 @@ void InitMaterial(material_t &material) {
 }
 
 static bool exportFaceGroupToShape(
-    shape_t &shape, std::map<vertex_index, unsigned int> vertexCache,
+    shape_t &shape, std::map<vertex_index, vertex_index> vertexCache,
     const std::vector<float> &in_positions,
     const std::vector<float> &in_normals,
     const std::vector<float> &in_texcoords,
@@ -389,19 +387,27 @@ static bool exportFaceGroupToShape(
       i1 = i2;
       i2 = face[k];
 
-      unsigned int v0 = updateVertex(
+      vertex_index vi0 = updateVertex(
           vertexCache, shape.mesh.positions, shape.mesh.normals,
           shape.mesh.texcoords, in_positions, in_normals, in_texcoords, i0);
-      unsigned int v1 = updateVertex(
+      vertex_index vi1 = updateVertex(
           vertexCache, shape.mesh.positions, shape.mesh.normals,
           shape.mesh.texcoords, in_positions, in_normals, in_texcoords, i1);
-      unsigned int v2 = updateVertex(
+      vertex_index vi2 = updateVertex(
           vertexCache, shape.mesh.positions, shape.mesh.normals,
           shape.mesh.texcoords, in_positions, in_normals, in_texcoords, i2);
 
-      shape.mesh.indices.push_back(v0);
-      shape.mesh.indices.push_back(v1);
-      shape.mesh.indices.push_back(v2);
+      shape.mesh.indices.push_back(vi0.v_idx);
+      shape.mesh.indices.push_back(vi1.v_idx);
+      shape.mesh.indices.push_back(vi2.v_idx);
+
+      shape.mesh.normal_indices.push_back(vi0.vn_idx);
+      shape.mesh.normal_indices.push_back(vi1.vn_idx);
+      shape.mesh.normal_indices.push_back(vi2.vn_idx);
+
+      shape.mesh.texcoord_indices.push_back(vi0.vt_idx);
+      shape.mesh.texcoord_indices.push_back(vi1.vt_idx);
+      shape.mesh.texcoord_indices.push_back(vi2.vt_idx);
 
       shape.mesh.material_ids.push_back(material_id);
     }
@@ -420,9 +426,7 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
                     std::istream &inStream) {
   std::stringstream err;
 
-  // Create a default material anyway.
   material_t material;
-  InitMaterial(material);
 
   int maxchars = 8192;             // Alloc enough size.
   std::vector<char> buf(maxchars); // Alloc enough size.
@@ -473,7 +477,7 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
       char namebuf[TINYOBJ_SSCANF_BUFFER_SIZE];
       token += 7;
 #ifdef _MSC_VER
-      sscanf_s(token, "%s", namebuf, (unsigned)_countof(namebuf));
+      sscanf_s(token, "%s", namebuf, _countof(namebuf));
 #else
       sscanf(token, "%s", namebuf);
 #endif
@@ -566,7 +570,7 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
     if (token[0] == 'T' && token[1] == 'r' && isSpace(token[2])) {
       token += 2;
       // Invert value of Tr(assume Tr is in range [0, 1])
-      material.dissolve = 1.0f - parseFloat(token);
+      material.dissolve = 1.0 - parseFloat(token);
       continue;
     }
 
@@ -591,38 +595,10 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
       continue;
     }
 
-    // specular highlight texture
+    // normal texture
     if ((0 == strncmp(token, "map_Ns", 6)) && isSpace(token[6])) {
       token += 7;
-      material.specular_highlight_texname = token;
-      continue;
-    }
-
-    // bump texture
-    if ((0 == strncmp(token, "map_bump", 8)) && isSpace(token[8])) {
-      token += 9;
-      material.bump_texname = token;
-      continue;
-    }
-
-    // alpha texture
-    if ((0 == strncmp(token, "map_d", 5)) && isSpace(token[5])) {
-      token += 6;
-      material.alpha_texname = token;
-      continue;
-    }
-
-    // bump texture
-    if ((0 == strncmp(token, "bump", 4)) && isSpace(token[4])) {
-      token += 5;
-      material.bump_texname = token;
-      continue;
-    }
-
-    // displacement texture
-    if ((0 == strncmp(token, "disp", 4)) && isSpace(token[4])) {
-      token += 5;
-      material.displacement_texname = token;
+      material.normal_texname = token;
       continue;
     }
 
@@ -659,13 +635,7 @@ std::string MaterialFileReader::operator()(const std::string &matId,
   }
 
   std::ifstream matIStream(filepath.c_str());
-  std::string err = LoadMtl(matMap, materials, matIStream);
-  if (!matIStream) {
-    std::stringstream ss;
-    ss << "WARN: Material file [ " << filepath << " ] not found. Created a default material.";
-    err += ss.str();
-  }
-  return err;
+  return LoadMtl(matMap, materials, matIStream);
 }
 
 std::string LoadObj(std::vector<shape_t> &shapes,
@@ -704,7 +674,7 @@ std::string LoadObj(std::vector<shape_t> &shapes,
 
   // material
   std::map<std::string, int> material_map;
-  std::map<vertex_index, unsigned int> vertexCache;
+  std::map<vertex_index, vertex_index> vertexCache;
   int material = -1;
 
   shape_t shape;
@@ -799,7 +769,7 @@ std::string LoadObj(std::vector<shape_t> &shapes,
       char namebuf[TINYOBJ_SSCANF_BUFFER_SIZE];
       token += 7;
 #ifdef _MSC_VER
-      sscanf_s(token, "%s", namebuf, (unsigned)_countof(namebuf));
+      sscanf_s(token, "%s", namebuf, _countof(namebuf));
 #else
       sscanf(token, "%s", namebuf);
 #endif
@@ -828,7 +798,7 @@ std::string LoadObj(std::vector<shape_t> &shapes,
       char namebuf[TINYOBJ_SSCANF_BUFFER_SIZE];
       token += 7;
 #ifdef _MSC_VER
-      sscanf_s(token, "%s", namebuf, (unsigned)_countof(namebuf));
+      sscanf_s(token, "%s", namebuf, _countof(namebuf));
 #else
       sscanf(token, "%s", namebuf);
 #endif
@@ -894,7 +864,7 @@ std::string LoadObj(std::vector<shape_t> &shapes,
       char namebuf[TINYOBJ_SSCANF_BUFFER_SIZE];
       token += 2;
 #ifdef _MSC_VER
-      sscanf_s(token, "%s", namebuf, (unsigned)_countof(namebuf));
+      sscanf_s(token, "%s", namebuf, _countof(namebuf));
 #else
       sscanf(token, "%s", namebuf);
 #endif
