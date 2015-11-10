@@ -92,7 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\camera.h" />
+    <ClInclude Include="source\CImg.h" />
     <ClInclude Include="source\constant.h" />
+    <ClInclude Include="source\draw.hpp" />
     <ClInclude Include="source\EventHandler.hpp" />
     <ClInclude Include="source\Lego.h" />
     <ClInclude Include="source\loader.hpp" />

@@ -76,6 +76,12 @@
     <ClInclude Include="source\loader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\draw.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CImg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\camera.cpp">
