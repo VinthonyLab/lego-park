@@ -110,7 +110,7 @@ void drawLegoMan(){
 				if(Tid[mID] != INT_MAX){
 					glTexCoord2f(
 							texture[Tindex],
-							texture[Tindex+1]
+							1-texture[Tindex+1]
 							);
 				}
 				glNormal3f(
