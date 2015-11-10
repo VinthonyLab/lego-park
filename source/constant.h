@@ -5,6 +5,10 @@
 #define SCREEN_HEIGHT 640
 #define FOV 45
 #define MAX_STACK 10000
+#define LEGO_CHARACTER_1 1
+#define LEGO_CHARACTER_2 2
+#define LEGO_CHARACTER_3 3
+#define LEGO_CHARACTER_4 4
 struct vec3{
 	float x;
 	float y;

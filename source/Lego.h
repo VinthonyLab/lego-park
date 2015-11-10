@@ -22,6 +22,7 @@ public:
 	Lego* move(vec3 v);
 	Lego* rotate(vec3 v);
 	Lego* setColor(vec3 color);
+	Lego* reset();
 	vec3 getColor();
 	Lego* reflash();
 };

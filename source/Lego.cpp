@@ -34,6 +34,9 @@ Lego* Lego::reflash(){
 	// reflash the new position and translation of lego
 	return this;
 }
+Lego* Lego::reset(){
+	return this;
+}
 
 Lego::~Lego(){
 	//deconstruct
