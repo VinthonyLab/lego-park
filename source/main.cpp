@@ -10,7 +10,7 @@
 #include "draw.hpp"
 
 using namespace std;
-vec3 camera = {20,0,0};
+vec3 camera = {20,10,0};
 vec3 center = {0,0,0};
 vec3 up = {0,1,0};
 GLfloat zNear = 0.1;
@@ -27,7 +27,6 @@ GLuint LegoMan::Tid[30];
 void displayHandler(){
 	glClearColor(0.3f,0.3f,0.3f,0.2f);
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
-	glColor3f(0.3,0.3,0.3);
 	drawXYZ();
 	drawLMan(1);
 	glutSwapBuffers();
@@ -52,7 +51,8 @@ void reshapeHandler(int width,int height){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(FOV,(GLfloat)width/(GLfloat)height,zNear,zFar);
-	setCamera(camera,center,up,zNear,zFar);
+	//setCamera(camera,center,up,zNear,zFar);
+	tinyLight();	
 };
 void idelHandler(){};
 
@@ -60,7 +60,6 @@ void init(){
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glShadeModel(GL_SMOOTH);
@@ -79,7 +78,6 @@ int main(int argc,char * argv[])
 	glutCreateWindow("LEGO-PARK");
 	
 	init();
-
 	glutDisplayFunc(&displayHandler);
 	glutReshapeFunc(&reshapeHandler);
 	glutKeyboardFunc(&keyboardEventHandler);

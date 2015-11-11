@@ -48,9 +48,7 @@ void drawLMan(int character){
 }
 
 void tinyLight(){
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	GLfloat lightpos[] = {10.0, 20.0, 10.0, 1.0};
+	GLfloat lightpos[] = {-10.0, 10.0, 0.0, 1.0};
 	GLfloat light_KA[] = {1.0,1.0,1.0,1.0};
 	GLfloat light_KD[] = {1.0,1.0,1.0,1.0};
 	GLfloat light_KS[] = {1.0,1.0,1.0,1.0};

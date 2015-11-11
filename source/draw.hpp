@@ -3,6 +3,7 @@
 #ifndef _DRAW_FUNCTIONS_
 #define _DRAW_FUNCTIONS_
 void drawXYZ(){
+	glEnable(GL_COLOR_MATERIAL);
 	glBegin(GL_LINES);
 		glColor3f(1.0,0.0,0.0); //x
 		glVertex3f(0.0,0.0,0.0);
@@ -16,7 +17,8 @@ void drawXYZ(){
 		glVertex3f(0.0,0.0,0.0);
 		glVertex3f(0.0,0.0,5);
 	glEnd();
-	glColor3f(1.0,1.0,1.0);
+		glColor3f(1.0,1.0,1.0);
+		glDisable(GL_COLOR_MATERIAL);
 }
 
 #endif
