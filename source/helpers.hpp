@@ -6,7 +6,7 @@
 #include "tiny_obj_loader.h"
 #include "LegoMan.h"
 string LEGO_MAN = "./lego_people_obj/lego_man.obj";
-string BASE = "C:/Users/Nantu/Documents/GitHub/lego-park/lego_people_obj/";
+string BASE = "./lego_people_obj/";
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.hpp"
 using namespace std;

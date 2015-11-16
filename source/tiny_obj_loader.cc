@@ -427,7 +427,8 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
   std::stringstream err;
 
   material_t material;
-
+  int empty_count = 0;
+  int return_count = 0;
   int maxchars = 8192;             // Alloc enough size.
   std::vector<char> buf(maxchars); // Alloc enough size.
   while (inStream.peek() != -1) {
@@ -439,7 +440,7 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
     if (linebuf.size() > 0) {
       if (linebuf[linebuf.size() - 1] == '\n')
         linebuf.erase(linebuf.size() - 1);
-    }
+		}
     if (linebuf.size() > 0) {
       if (linebuf[linebuf.size() - 1] == '\r')
         linebuf.erase(linebuf.size() - 1);
@@ -447,13 +448,14 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
 
     // Skip if empty line.
     if (linebuf.empty()) {
-      continue;
+		//empty_count++;
+		continue;
     }
 
     // Skip leading space.
     const char *token = linebuf.c_str();
     token += strspn(token, " \t");
-
+	printf("%s\n", token);
     assert(token);
     if (token[0] == '\0')
       continue; // empty line
@@ -643,7 +645,7 @@ std::string LoadObj(std::vector<shape_t> &shapes,
                     const char *filename, const char *mtl_basepath) {
 
   shapes.clear();
-
+  printf("%s", filename);
   std::stringstream err;
 
   std::ifstream ifs(filename);
@@ -656,6 +658,7 @@ std::string LoadObj(std::vector<shape_t> &shapes,
   if (mtl_basepath) {
     basePath = mtl_basepath;
   }
+  printf("%s", basePath.c_str());
   MaterialFileReader matFileReader(basePath);
 
   return LoadObj(shapes, materials, ifs, matFileReader);

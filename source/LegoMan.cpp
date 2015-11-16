@@ -7,7 +7,7 @@ void LegoMan::drawLegoMan(){
 	glEnable(GL_LIGHT0);
 	for (size_t i = 0; i < LegoMan::shapes.size(); i++) { // get shapes/
 		vector<int> m_id = LegoMan::shapes[i].mesh.material_ids;
-		vector<char32_t> indices = LegoMan::shapes[i].mesh.indices;
+		vector<unsigned int> indices = LegoMan::shapes[i].mesh.indices;
 		vector<float> positions = LegoMan::shapes[i].mesh.positions;
 		vector<float> normals = LegoMan::shapes[i].mesh.normals;
 		vector<float> texture = LegoMan::shapes[i].mesh.texcoords;
