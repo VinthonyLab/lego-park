@@ -5,25 +5,23 @@
 // it with include vecstack.cpp
 // maybe it's because i recreate this two file.
 // but i using .hpp to hybrid the .h and .cpp to avoid this problem.
-#include "VecStack.hpp"
+#include "VecStack.h"
 
 class Lego
 {
 private:
-	int size_x;
-	int size_y;
-	int size_z;
-	vec3 color;
-	vec3 position;
-	Stack<vec3> history;
+	int size_x=0;
+	int size_y=0;
+	int size_z=0;
+	RGB color={1.0,0.0,0.0};
+	Stack<vec3_flag> history;
 public:
 	Lego(int x,int y,int z);
 	~Lego(void);
-	Lego* move(vec3 v);
-	Lego* rotate(vec3 v);
-	Lego* setColor(vec3 color);
+	Lego* move(GLint x, GLint y, GLint z);
+	Lego* rotate(int d);
+	Lego* setColor(RGB c);
 	Lego* reset();
-	vec3 getColor();
 	Lego* reflash();
 };
 
