@@ -42,6 +42,7 @@
     <None Include="lego_people_obj\lego_man.mtl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="lego_people_obj\lego_spaceship.obj">
