@@ -9,18 +9,27 @@
 #define LEGO_CHARACTER_2 2
 #define LEGO_CHARACTER_3 3
 #define LEGO_CHARACTER_4 4
+
+//record color( R, G, B)
 struct RGB
 {
-    double R;
-    double G;
-    double B;
-}
+	double R;
+	double G;
+	double B;
+};
 
+//record vector( x, y, z)
+struct vec3
+{
+	float x;
+	float y;
+	float z;
+};
+
+//push into stack ( {vec3}, rotate_flag)
 struct vec3_flag {
-	GLint x;
-    GLint y;
-	GLint z;
-    int flag;  //0:move  1:rotate 90 2:rotate 180 3:rotate 270
+	vec3 vector;
+	int flag;  //0:move  1:rotate 90 2:rotate 180 3:rotate 270
 };
 
 struct obj {
