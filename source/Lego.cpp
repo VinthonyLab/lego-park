@@ -13,6 +13,24 @@ void quad(GLint n1,GLint n2,GLint n3,GLint n4,vertex3 *P)
 
 }
 
+void circle(float x, float y, float z,float radius)
+{
+    int count;
+    int sections=200;
+                      
+    GLfloat TWOPI=2.0f * 3.14159f;
+
+    glBegin(GL_TRIANGLE_FAN);
+        glVertex3f(x, y, z);
+
+        for(count=0; count<=sections; count++)
+        {
+            glVertex3f(x+radius*cos(count*TWOPI/sections), y, z+radius*sin(count*TWOPI/sections));
+        }
+    glEnd();
+}
+
+
 Lego::Lego(int x,int y,int z)
 {
 	// using a stack to store all the movement we apply on the lego
@@ -89,8 +107,8 @@ Lego* Lego::reflash(){
 
     //update position & rotate_flag
     position.x = position.x + move.x;
-    position.y = position.x + move.y;
-    position.z = position.x + move.z;
+    position.y = position.y + move.y;
+    position.z = position.z + move.z;
     rotate_flag = (rotate_flag + rotate) % 4;
 
     //draw cube & transformation
@@ -136,14 +154,15 @@ Lego* Lego::draw(){
    
     for(int i=0;i<size_x;i++){
         for(int j=0;j<size_z;j++){
-			GLUquadricObj* pipe = gluNewQuadric();
+            GLUquadricObj* pipe = gluNewQuadric();
             gluQuadricDrawStyle( pipe, GLU_FILL );
         
             glPushMatrix();
-	        glTranslatef (0.5 + i, size_y+0.5 , 0.5 + j);
+	        glTranslatef (0.5 + i, size_y+0.4 , 0.5 + j);
             glRotatef (90, 1.0, 0.0, 0.0);
-	        gluCylinder( pipe, 0.4, 0.4, 0.4, 15, 5 );
+            gluCylinder( pipe, 0.4, 0.4, 0.4, 15, 5 );
             glPopMatrix();
+            circle(0.5 + i, size_y+0.4 , 0.5 + j, 0.4);
         }
     }
     return this;

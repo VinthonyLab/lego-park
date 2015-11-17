@@ -19,21 +19,24 @@ int lastMouseX;
 int lastMouseY;
 
 
+
+
 void displayHandler() {
 	glClearColor(0.3f, 0.3f, 0.3f, 0.2f);
 	
 	
-	Lego a = Lego(2, 1, 2);
-	a.setColor({ 0.00,1.00,1.00 });
-	a.move({ 1, 0, 4 });
+	Lego a = Lego(4, 1, 4);
+	a.setColor({ 0.00,1.00,0.00 });
 	Lego b = Lego(2, 1, 2);
-	b.setColor({ 1.00,0.00,1.00 });
-	b.move({ 1,1,4 });
+	b.setColor({ 1.00,1.00,1.00 });
+	b.move({ 1, 1, 1});
 	
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	drawXYZ();
+	glEnable(GL_COLOR_MATERIAL);
 	a.reflash();
 	b.reflash();
+	glDisable(GL_COLOR_MATERIAL);
 
 	glutSwapBuffers();
 }
