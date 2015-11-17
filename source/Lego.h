@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "constant.h"
-//wired problem， can't find source file of VecStack.h, could fixed
+//wired problem£¬ can't find source file of VecStack.h, could fixed
 // it with include vecstack.cpp
 // maybe it's because i recreate this two file.
 // but i using .hpp to hybrid the .h and .cpp to avoid this problem.
@@ -25,7 +25,7 @@ public:
 	Lego(int x,int y,int z);
 	~Lego(void);
 	
-    Lego* move(vec3);
+    Lego* move(vec3 v);
 	Lego* rotate(int degree_flag);
 	
     Lego* setColor(RGB c);
@@ -33,5 +33,6 @@ public:
 	
     Lego* reset();
 	Lego* reflash();
+	Lego* draw();
 };
 

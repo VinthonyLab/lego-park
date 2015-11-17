@@ -36,9 +36,9 @@ Stack<vec3_flag>::~Stack()
 	// because item array was not create with `new` 
 	// there are server ways to free a structure in cpp
 	// `vec3` struct doesn't using point , so just delete it's memory.
-	for (int i = 0; i < top; i++) {
-		delete &item[i];
-	}
+//	for (int i = 0; i < top; i++) {
+//		delete &item[i];
+//	}
 }
 
 template <class vec3_flag>
