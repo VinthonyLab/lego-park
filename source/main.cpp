@@ -26,9 +26,14 @@ GLuint LegoMan::Tid[30];
 
 void displayHandler(){
 	glClearColor(0.3f,0.3f,0.3f,0.2f);
-	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
 	drawXYZ();
-	drawLMan(1);
+	//drawLMan(1);
+	Lego a = Lego(4, 1, 4);
+	a.setColor({ 0.00,0.4,0.3 });
+
+	a.reflash();
 	glutSwapBuffers();
 }
 void keyboardEventHandler(unsigned char key,int x,int y){};
@@ -48,10 +53,7 @@ void mouseEventHandler(int x,int y){
 
 void reshapeHandler(int width,int height){
 	glViewport(0,0,(GLsizei)width,(GLsizei)height);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(FOV,(GLfloat)width/(GLfloat)height,zNear,zFar);
-	//setCamera(camera,center,up,zNear,zFar);
+	setCamera(camera,center,up,zNear,zFar);
 	tinyLight();	
 };
 void idelHandler(){};

@@ -9,7 +9,7 @@
 #include "tiny_obj_loader.h"
 #include "constant.h"
 #include "Lego.h"
-#include "VecStack.hpp"
+#include "VecStack.h"
 using namespace std;
 class LegoMan{
 private:

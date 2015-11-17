@@ -5,6 +5,7 @@ typedef GLint vertex3[3];
 void quad(GLint n1,GLint n2,GLint n3,GLint n4,vertex3 *P)
 {
 	glBegin(GL_QUADS);
+
 	 glVertex3iv(P[n1]);
 	 glVertex3iv(P[n2]);
 	 glVertex3iv(P[n3]);
@@ -133,7 +134,7 @@ Lego* Lego::reset(){
 
 
 Lego* Lego::draw(){
-
+	glEnable(GL_COLOR_MATERIAL);
     //init cube coordinate  x*y*z
    
     vertex3 points[8]={{ 0, 0, 0},{ 0, 0, size_z},{ size_x, 0, size_z},{ size_x, 0, 0},
@@ -141,12 +142,18 @@ Lego* Lego::draw(){
 
     //draw cube
     glColor3f( color.R, color.G, color.B);
-	    quad(0,1,2,3,points);
-	    quad(4,5,6,7,points);
-        quad(1,5,6,2,points);
-	    quad(0,4,7,3,points);
-	    quad(0,1,5,4,points);
-	    quad(3,2,6,7,points);
+		glNormal3f(0,-1,0);
+	    quad(0,1,2,3,points); // downside face
+		glNormal3f(0,1,0);
+	    quad(4,5,6,7,points); // upside face
+		glNormal3f(0,0,1);
+        quad(1,5,6,2,points); // front side face
+		glNormal3f(0,0,-1);
+	    quad(0,4,7,3,points); // back side face
+		glNormal3f(-1,0,0);
+	    quad(0,1,5,4,points); // left side face
+		glNormal3f(1, 0, 0);
+	    quad(3,2,6,7,points); // right side face
     
         
     
@@ -165,6 +172,7 @@ Lego* Lego::draw(){
             circle(0.5 + i, size_y+0.4 , 0.5 + j, 0.4);
         }
     }
+	glDisable(GL_COLOR_MATERIAL);
     return this;
 }
 

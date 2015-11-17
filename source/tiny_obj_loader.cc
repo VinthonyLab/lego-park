@@ -455,7 +455,6 @@ std::string LoadMtl(std::map<std::string, int> &material_map,
     // Skip leading space.
     const char *token = linebuf.c_str();
     token += strspn(token, " \t");
-	printf("%s\n", token);
     assert(token);
     if (token[0] == '\0')
       continue; // empty line
@@ -645,7 +644,6 @@ std::string LoadObj(std::vector<shape_t> &shapes,
                     const char *filename, const char *mtl_basepath) {
 
   shapes.clear();
-  printf("%s", filename);
   std::stringstream err;
 
   std::ifstream ifs(filename);
@@ -658,7 +656,6 @@ std::string LoadObj(std::vector<shape_t> &shapes,
   if (mtl_basepath) {
     basePath = mtl_basepath;
   }
-  printf("%s", basePath.c_str());
   MaterialFileReader matFileReader(basePath);
 
   return LoadObj(shapes, materials, ifs, matFileReader);
