@@ -49,6 +49,7 @@ void LegoMan::drawLegoMan(){
 		vector<float> positions = LegoMan::shapes[i].mesh.positions;
 		vector<float> normals = LegoMan::shapes[i].mesh.normals;
 		vector<float> texture = LegoMan::shapes[i].mesh.texcoords;
+		if (LegoMan::shapes[i].name != cha[character]) continue;
 		for(size_t f = 0; f <indices.size()/3; f++){
 			int mID = m_id[f];
 			if(LegoMan::Tid[mID] != INT_MAX){ // HAS TEXTURE
@@ -82,7 +83,7 @@ void LegoMan::drawLegoMan(){
 	glDisable(GL_LIGHTING);
 }
 
-LegoMan::LegoMan(int c){
+LegoMan::LegoMan(LEGOCHARACTER c){
 		// specfic the model;
 		character = c;
 }

@@ -15,9 +15,13 @@
 
 using namespace std;
 
+
+
+const string cha[] = { "legocharacter1","legocharacter2","legocharacter3","legocharacter4" };
+
 class LegoMan{
 private:
-	int character;
+	LEGOCHARACTER character;
 	vec3 position;
 	Stack<vec3> history;
 	void drawLegoMan();
@@ -26,7 +30,7 @@ public:
 	static vector<tinyobj::material_t> materials;
 	static GLuint Tid[30];
 	static void Init();
-	LegoMan(int c);
+	LegoMan(LEGOCHARACTER c);
 	~LegoMan();
 	LegoMan* move(vec3 v);
 	LegoMan* rotate(vec3 v);
