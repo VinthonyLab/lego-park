@@ -4,7 +4,7 @@
 Camera::Camera()
 {
 	_aspect = SCREEN_WIDTH / (GLdouble)SCREEN_HEIGHT;
-	_camera = { 20.0,10.0,0.0 };
+	_camera = { 40.0,10.0,50.0 };
 	_center = { 0, 0, 0 };
 	_up = { 0 , 1 , 0 };
 	_fov = FOV;
