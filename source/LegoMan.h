@@ -3,14 +3,18 @@
 #define _LEGO_MAN_
 #include <iostream>
 #include <GL\glut.h>
-#include <string.h>
+#include <string>
 #include <vector>
 #include <map>
 #include "tiny_obj_loader.h"
 #include "constant.h"
 #include "Lego.h"
-#include "VecStack.h"
+#include "VecStack.hpp"
+
+
+
 using namespace std;
+
 class LegoMan{
 private:
 	int character;
@@ -21,6 +25,7 @@ public:
 	static vector<tinyobj::shape_t> shapes;
 	static vector<tinyobj::material_t> materials;
 	static GLuint Tid[30];
+	static void Init();
 	LegoMan(int c);
 	~LegoMan();
 	LegoMan* move(vec3 v);

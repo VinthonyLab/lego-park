@@ -1,4 +1,42 @@
 #include "LegoMan.h"
+// better to include the *.h in the *.cpp file than *.h file ,otherwise will cause LNK 1169 problem
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.hpp"
+
+void getLegoManTexture(GLuint Tid[]) {
+	int imageWidth;
+	int imageHeight;
+	int pix;
+	glGenTextures(30, Tid);
+	for (size_t x = 0; x < LegoMan::materials.size(); x++) {
+		if (LegoMan::materials[x].diffuse_texname.empty()) {
+			Tid[x] = INT_MAX;
+		}
+		else {
+			std::string _base = BASE;
+			std::string Jname = _base + LegoMan::materials[x].diffuse_texname; // filename
+			unsigned char* data = stbi_load(Jname.c_str(), &imageWidth, &imageHeight, &pix, 3);
+			glBindTexture(GL_TEXTURE_2D, Tid[x]);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+			glTexImage2D(GL_TEXTURE_2D, 0, 3, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		}
+	}
+}
+
+bool objLoader(vector<tinyobj::shape_t> &shapes, vector<tinyobj::material_t> &materials) {
+	string _lego_man = LEGO_MAN;
+	string _base = BASE;
+	string err = tinyobj::LoadObj(shapes, materials,_lego_man.c_str(),_base.c_str());
+	if (!err.empty()) {
+		cerr << err << endl;
+		return false;
+	}
+	return true;
+}
 
 
 void LegoMan::drawLegoMan(){
@@ -67,3 +105,8 @@ LegoMan* LegoMan::reset(){
 LegoMan::~LegoMan(){
 
 }
+void LegoMan::Init() {
+	objLoader(LegoMan::shapes,LegoMan::materials);
+	getLegoManTexture(LegoMan::Tid);
+}
+

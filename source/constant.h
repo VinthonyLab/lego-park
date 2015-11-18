@@ -37,4 +37,7 @@ struct obj {
 	vec3 *points;
 };
 
+#define  LEGO_MAN  "./lego_people_obj/lego_man.obj";
+#define  BASE "./lego_people_obj/";
+
 #endif

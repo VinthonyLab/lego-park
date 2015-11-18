@@ -6,30 +6,23 @@
 #include <GL\GL.h>
 #include "constant.h"
 #include "helpers.hpp"
+#include "LegoMan.h"
 #include "camera.h"
 #include "draw.hpp"
 
 using namespace std;
-vec3 camera = {20,10,0};
-vec3 center = {0,0,0};
-vec3 up = {0,1,0};
-GLfloat zNear = 0.1;
-GLfloat zFar = 400;
-int lastMouseX;
-int lastMouseY;
-
-
+Camera camera;
 vector<tinyobj::shape_t> LegoMan::shapes;
 vector<tinyobj::material_t> LegoMan::materials;
 GLuint LegoMan::Tid[30];
-
+int lastMouseX;
+int lastMouseY;
 
 void displayHandler(){
 	glClearColor(0.3f,0.3f,0.3f,0.2f);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	drawXYZ();
-	//drawLMan(1);
 	Lego a = Lego(4, 1, 4);
 	a.setColor({ 0.00,0.4,0.3 });
 
@@ -38,22 +31,22 @@ void displayHandler(){
 }
 void keyboardEventHandler(unsigned char key,int x,int y){};
 void mouseEventHandler(int x,int y){
-		printf("current mouse position:%d,%d",x,y);
+	 vec3 _c = camera.getCameraPosition();
 		if(x != lastMouseX){
-			x < lastMouseX ? camera.x++ : camera.x--;
+			x < lastMouseX ? _c.x++ : _c.x--;
 			lastMouseX = x;
 		}
 		if(y != lastMouseY){
-			y < lastMouseY ? camera.y++ : camera.y--;
+			y < lastMouseY ? _c.y++ : _c.y--;
 			lastMouseY = y;
 		}
-		setCamera(camera,center,up,zNear,zFar);
+		camera.setLookAtCamera(_c);
 		glutPostRedisplay();
 };
 
 void reshapeHandler(int width,int height){
 	glViewport(0,0,(GLsizei)width,(GLsizei)height);
-	setCamera(camera,center,up,zNear,zFar);
+	camera.setPerspectiveAspect(width / (GLdouble)height);
 	tinyLight();	
 };
 void idelHandler(){};
@@ -62,12 +55,9 @@ void init(){
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 	glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 	glShadeModel(GL_SMOOTH);
-	setCamera(camera,center,up,zNear,zFar);
-	objLoader(LegoMan::shapes,LegoMan::materials);
-	getLegoManTexture(LegoMan::Tid);
+	camera.Init();
+	LegoMan::Init();
 	tinyLight();
 }
 
@@ -84,7 +74,7 @@ int main(int argc,char * argv[])
 	glutReshapeFunc(&reshapeHandler);
 	glutKeyboardFunc(&keyboardEventHandler);
 	glutIdleFunc(&idelHandler);
-	//glutMotionFunc(&mouseEventHandler);
+	glutMotionFunc(&mouseEventHandler);
 	glutMainLoop();
 
 	return 0;

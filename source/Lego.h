@@ -5,7 +5,7 @@
 // it with include vecstack.cpp
 // maybe it's because i recreate this two file.
 // but i using .hpp to hybrid the .h and .cpp to avoid this problem.
-#include "VecStack.h"
+#include "VecStack.hpp"
 
 class Lego
 {

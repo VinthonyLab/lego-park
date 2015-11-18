@@ -104,7 +104,7 @@
     <ClInclude Include="source\helpers.hpp" />
     <ClInclude Include="source\stb_image.hpp" />
     <ClInclude Include="source\tiny_obj_loader.h" />
-    <ClInclude Include="source\VecStack.h" />
+    <ClInclude Include="source\VecStack.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\camera.cpp" />

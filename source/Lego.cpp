@@ -134,6 +134,8 @@ Lego* Lego::reset(){
 
 
 Lego* Lego::draw(){
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glEnable(GL_COLOR_MATERIAL);
     //init cube coordinate  x*y*z
    
@@ -173,7 +175,9 @@ Lego* Lego::draw(){
         }
     }
 	glDisable(GL_COLOR_MATERIAL);
-    return this;
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+	return this;
 }
 
 Lego::~Lego(){

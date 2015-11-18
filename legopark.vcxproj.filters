@@ -80,7 +80,7 @@
     <ClInclude Include="source\helpers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\VecStack.h">
+    <ClInclude Include="source\VecStack.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
