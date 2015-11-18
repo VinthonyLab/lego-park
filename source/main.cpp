@@ -23,9 +23,11 @@ void displayHandler(){
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	drawXYZ();
-	Lego a = Lego(4, 1, 4);
-	a.setColor({ 0.00,0.4,0.3 });
+	//Lego a = Lego(4, 1, 4);
+	//a.setColor({ 0.00,0.4,0.3 });
 
+	//a.reflash();
+	LegoMan a = LegoMan(LEGO2);
 	a.reflash();
 	glutSwapBuffers();
 }

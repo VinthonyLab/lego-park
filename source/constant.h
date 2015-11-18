@@ -5,10 +5,6 @@
 #define SCREEN_HEIGHT 640
 #define FOV 45
 #define MAX_STACK 5
-#define LEGO_CHARACTER_1 1
-#define LEGO_CHARACTER_2 2
-#define LEGO_CHARACTER_3 3
-#define LEGO_CHARACTER_4 4
 
 //record color( R, G, B)
 struct RGB
@@ -35,6 +31,15 @@ struct vec3_flag {
 struct obj {
 	int vecs;
 	vec3 *points;
+};
+
+
+enum LEGOCHARACTER
+{
+	LEGO1,
+	LEGO2,
+	LEGO3,
+	LEGO4
 };
 
 #define  LEGO_MAN  "./lego_people_obj/lego_man.obj";
