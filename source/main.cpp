@@ -28,8 +28,7 @@ void displayHandler(){
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	drawXYZ();
-	draw_Base();
-	draw_UM();
+	draw_Park();
 	glutSwapBuffers();
 }
 void keyboardEventHandler(unsigned char key,int x,int y){};
