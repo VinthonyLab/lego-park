@@ -206,7 +206,7 @@ void draw_Bench()
 
 void draw_Tree( float x, float z)
 {
-	RGB sakura = { 0.796,0.25,0.26 };
+	RGB sakura = { 0.96,0.588,0.67 };
 	RGB wood = { 0.88,0.65,0.48 };
 
 	Lego tree1 = Lego(2.0, 4, 2.0);
