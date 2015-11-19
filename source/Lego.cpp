@@ -32,7 +32,7 @@ void circle(float x, float y, float z,float radius)
 }
 
 
-Lego::Lego(int x,int y,int z)
+Lego::Lego(float x,float y,float z)
 {
 	// using a stack to store all the movement we apply on the lego
 	size_x = x;
@@ -40,6 +40,20 @@ Lego::Lego(int x,int y,int z)
 	size_z = z;
    
     //reflash();
+}
+
+
+
+Lego::Lego(float x,float z)
+{
+	// using a stack to store all the movement we apply on the lego
+	size_x = x;
+	size_y = 1;
+	size_z = z;
+
+	type = 1;
+
+	//reflash();
 }
 
 
@@ -158,22 +172,23 @@ Lego* Lego::draw(){
 	    quad(3,2,6,7,points); // right side face
     
         
-    
-    //draw small cylinder
-   
-    for(int i=0;i<size_x;i++){
-        for(int j=0;j<size_z;j++){
-            GLUquadricObj* pipe = gluNewQuadric();
-            gluQuadricDrawStyle( pipe, GLU_FILL );
-        
-            glPushMatrix();
-	        glTranslatef (0.5 + i, size_y+0.4 , 0.5 + j);
-            glRotatef (90, 1.0, 0.0, 0.0);
-            gluCylinder( pipe, 0.4, 0.4, 0.4, 15, 5 );
-            glPopMatrix();
-            circle(0.5 + i, size_y+0.4 , 0.5 + j, 0.4);
-        }
-    }
+		if (type == 0) {
+			//draw small cylinder
+
+			for (int i = 0; i < size_x; i++) {
+				for (int j = 0; j < size_z; j++) {
+					GLUquadricObj* pipe = gluNewQuadric();
+					gluQuadricDrawStyle(pipe, GLU_FILL);
+
+					glPushMatrix();
+					glTranslatef(0.5 + i, size_y + 0.4, 0.5 + j);
+					glRotatef(90, 1.0, 0.0, 0.0);
+					gluCylinder(pipe, 0.4, 0.4, 0.4, 15, 5);
+					glPopMatrix();
+					circle(0.5 + i, size_y + 0.4, 0.5 + j, 0.4);
+				}
+			}
+		}
 	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);

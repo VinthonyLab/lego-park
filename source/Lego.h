@@ -21,8 +21,10 @@ private:
     int rotate_flag=0;
     //record operation
     Stack<vec3_flag> history;
+	int type = 0;
 public:
-	Lego(int x,int y,int z);
+	Lego(float x,float y,float z);
+	Lego(float x,float z);
 	~Lego(void);
 	
     Lego* move(vec3 v);
