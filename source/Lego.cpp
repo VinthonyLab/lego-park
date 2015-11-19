@@ -83,7 +83,7 @@ Lego* Lego::reflash(){
     int rotate=0;
 
     //move&rotate with history stack
-    if(history.isempty()==false)
+    while(history.isempty()==false)
     {
         history.pop(temp);
 		switch (temp.flag) {

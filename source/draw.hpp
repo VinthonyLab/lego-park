@@ -5,15 +5,15 @@
 void drawXYZ(){
 	glEnable(GL_COLOR_MATERIAL);
 	glBegin(GL_LINES);
-		glColor3f(1.0,0.0,0.0); //x
+		glColor3f(1.0,0.0,0.0); //x_r
 		glVertex3f(0.0,0.0,0.0);
 		glVertex3f(5,0.0,0.0);
 
-		glColor3f(0.0,1.0,0.0); //y
+		glColor3f(0.0,1.0,0.0); //y_g
 		glVertex3f(0.0,0.0,0.0);
 		glVertex3f(0.0,5,0.0);
 
-		glColor3f(0.0,0.0,1.0); //z
+		glColor3f(0.0,0.0,1.0); //z_b
 		glVertex3f(0.0,0.0,0.0);
 		glVertex3f(0.0,0.0,5);
 	glEnd();

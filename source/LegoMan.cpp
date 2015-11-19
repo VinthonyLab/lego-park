@@ -40,6 +40,9 @@ bool objLoader(vector<tinyobj::shape_t> &shapes, vector<tinyobj::material_t> &ma
 
 
 void LegoMan::drawLegoMan(){
+	vec3_flag temp = { 0,0,0,0 };
+	vec3 move = { 0,0,0 };
+	int rotate = 0;
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -89,14 +92,56 @@ LegoMan::LegoMan(LEGOCHARACTER c){
 }
 
 LegoMan* LegoMan::move(vec3 v){
+	vec3_flag temp = { 0,0,0,0 };
+	temp.vector = v;
+	temp.flag = 0;
+	history.push(temp);
 	return this;
 }
-LegoMan* LegoMan::rotate(vec3 v){
+LegoMan* LegoMan::rotate(int v){
+	vec3_flag temp = { 0,0,0,0 };
+	temp.flag = v;
+	history.push(temp);
 	return this;
 }
 
 LegoMan* LegoMan::reflash(){
+	vec3_flag temp = {0,0,0,0};
+	vec3 move = { 0,0,0 };
+	int rotate = 0;
+
+	while (history.isempty() == false) {
+		history.pop(temp);
+		switch (temp.flag)
+		{
+		case 0:
+			move.x += temp.vector.x;
+			move.y += temp.vector.y;
+			move.z += temp.vector.z;
+			break;
+		case 1:
+			rotate += temp.flag;
+			break;
+		case 2:
+			rotate += temp.flag;
+			break;
+		case 3:
+			rotate += temp.flag;
+			break;
+		default:
+			break;
+		}
+	}
+	position.x += move.x;
+	position.y += move.y;
+	position.z += move.z;
+	rotate_flag = (rotate_flag + rotate) % 4;
+
+	glPushMatrix();
+	glTranslatef(position.x, position.y, position.z);
+	glRotatef(rotate_flag*90, 0.0, 1.0, 0.0);
 	drawLegoMan();
+	glPopMatrix();
 	return this;
 }
 LegoMan* LegoMan::reset(){

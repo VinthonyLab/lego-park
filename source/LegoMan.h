@@ -22,9 +22,10 @@ const string cha[] = { "legocharacter1","legocharacter2","legocharacter3","legoc
 class LegoMan{
 private:
 	LEGOCHARACTER character;
-	vec3 position;
-	Stack<vec3> history;
+	vec3 position = {0,0.5,0};
+	Stack<vec3_flag> history;
 	void drawLegoMan();
+	int rotate_flag = 0;
 public:
 	static vector<tinyobj::shape_t> shapes;
 	static vector<tinyobj::material_t> materials;
@@ -33,7 +34,7 @@ public:
 	LegoMan(LEGOCHARACTER c);
 	~LegoMan();
 	LegoMan* move(vec3 v);
-	LegoMan* rotate(vec3 v);
+	LegoMan* rotate(int v);
 	LegoMan* reflash();
 	LegoMan* reset();
 };
