@@ -139,7 +139,22 @@ LegoMan* LegoMan::reflash(){
 
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
-	glRotatef(rotate_flag*90, 0.0, 1.0, 0.0);
+	switch (character)
+	{
+	case LEGO1:
+		glRotatef(rotate_flag * 90, 0.0, 1.0, 0.0);
+		glTranslatef(0, 0, -4.0);
+		break;
+	case LEGO2:
+		break;
+	case LEGO3:
+		break;
+	case LEGO4:
+		break;
+	default:
+		break;
+	}
+	
 	drawLegoMan();
 	glPopMatrix();
 	return this;

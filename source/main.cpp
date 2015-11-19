@@ -20,6 +20,7 @@ int lastMouseY;
 float LegoManX=0;
 float LegoManY=0;
 float LegoManZ=0;
+float npcZ = 5;
 enum DIRECTIONS
 {
 	FRONT,
@@ -29,18 +30,28 @@ enum DIRECTIONS
 };
 int direction = LEFT;
 int LegoManRotate = -1;
+int npcRotate = 3;
+int sun_time = 1;
 
 void displayHandler(){
-	glClearColor(0.3f,0.3f,0.3f,0.2f);
+	if (sun_time % 360 >180) {
+		glClearColor(0.4f, 0.4f, 0.4f, 0.4f);
+	}else{
+		glClearColor(0.9f, 0.9f, 0.9f, 0.9f);
+	}
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	drawXYZ();
-	draw_Base();
-	draw_UM();
-	LegoMan f(LEGO2);
-	f.move({ LegoManX,LegoManY,LegoManZ });
-	f.rotate(LegoManRotate);
-	f.reflash();
+	draw_Park();
+	draw_npc();
+	//draw ai
+	LegoMan ai = LegoMan(LEGO1);
+	ai.rotate(npcRotate);
+	ai.move({ 30,0,npcZ});
+	ai.reflash();
+
+	drawSUN(sun_time);
+	tinyLight(sun_time);
 	glutSwapBuffers();
 }
 void keyboardEventHandler(unsigned char key,int x,int y){
@@ -147,7 +158,6 @@ void keyboardEventHandler(unsigned char key,int x,int y){
 	default:
 		break;
 	}
-	//cout << direction << endl;
 	glutPostRedisplay();
 };
 void mouseEventHandler(int x,int y){
@@ -165,10 +175,24 @@ void mouseEventHandler(int x,int y){
 };
 void reshapeHandler(int width,int height){
 	glViewport(0,0,(GLsizei)width,(GLsizei)height);
-	camera.setPerspectiveAspect(width / (GLdouble)height);
-	tinyLight();	
+	camera.setPerspectiveAspect(width / (GLdouble)height);	
 };
-void idelHandler(){};
+void idelHandler(){
+	sun_time++;
+	if (npcZ < 20 && npcRotate == 3) {
+		npcZ += 0.5;
+	}
+	else {
+		npcRotate = 1;
+	}
+	if (npcZ > 5 && npcRotate == 1){
+		npcZ -= 0.5;
+	}
+	else {
+		npcRotate = 3;
+	}
+	glutPostRedisplay();
+};
 
 void init(){
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
@@ -177,7 +201,6 @@ void init(){
 	glShadeModel(GL_SMOOTH);
 	camera.Init();
 	LegoMan::Init();
-	tinyLight();
 }
 
 int main(int argc,char * argv[])
