@@ -22,12 +22,13 @@ void drawXYZ(){
 }
 void draw_Groud()
 {
+	RGB glass = {0.1765,0.4275,0.2941};
 	Lego ground1 = Lego(12.0, 0, 32.0);
-	ground1.setColor({ 0.012,0.51,0.17 });
+	ground1.setColor(glass);
 	ground1.reflash();
 
 	Lego ground2 = Lego(12.0, 0, 32.0);
-	ground2.setColor({ 0.012,0.51,0.17 });
+	ground2.setColor(glass);
 	ground2.move({ 20, 0, 0 });
 	ground2.reflash();
 }
@@ -169,7 +170,7 @@ void draw_Rock(float x,float z)
 }
 void draw_Tree( float x, float z)
 {
-	RGB sakura = { 0.96,0.59,0.67 };
+	RGB sakura = { 0.796,0.25,0.26 };
 	RGB wood = { 0.88,0.65,0.48 };
 	Lego tree1 = Lego(2.0, 4, 2.0);
 	tree1.setColor(wood);
@@ -209,14 +210,14 @@ void drawSUN(int currentTime) {
 	glPushMatrix();
 	if (currentTime % 360 > 180 ) {
 		//night
-		glColor3f(1.0, 1.0, 0.0);
+		glColor3f(0.855, 0.788, 0.651);
 		glRotatef(currentTime+180, 0, 0, 1);
 	}else{
 		//day
-		glColor3f(1.0, 0.0, 0.0);
+		glColor3f(0.922, 0.478, 0.47);
 		glRotatef(currentTime, 0, 0, 1);
 	}
-	glTranslatef(30, 0, 0);
+	glTranslatef(30, 0, -5);
 	glutSolidSphere(2, 20, 20);
 	glPopMatrix();
 }

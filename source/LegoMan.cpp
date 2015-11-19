@@ -46,6 +46,7 @@ void LegoMan::drawLegoMan(){
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glDisable(GL_BLEND);
 	for (size_t i = 0; i < LegoMan::shapes.size(); i++) { // get shapes/
 		vector<int> m_id = LegoMan::shapes[i].mesh.material_ids;
 		vector<unsigned int> indices = LegoMan::shapes[i].mesh.indices;
@@ -84,6 +85,7 @@ void LegoMan::drawLegoMan(){
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHT0);
 	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
 }
 
 LegoMan::LegoMan(LEGOCHARACTER c){

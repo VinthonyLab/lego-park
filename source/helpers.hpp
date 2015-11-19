@@ -1,28 +1,41 @@
 #include <iostream>
 #include <GL\glut.h>
 #include <math.h>
+
+using namespace std;
+
 void tinyLight(int time){
-	GLfloat lightpos[] = { 10.0, 10.0, 0.0, 1.0 };
+	if (time % 360 > 180) time = time + 180;
+
+	GLfloat lightpos[] = { 30.0, 0.0, -5.0, 0.0 };
 	GLfloat light_KA[] = { 1.0,1.0,1.0,1.0 };
 	GLfloat light_KD[] = { 1.0,1.0,1.0,1.0 };
 	GLfloat light_KS[] = { 1.0,1.0,1.0,1.0 };
-
-	//float lpx = 30 * abs(cosf(time));
-	//float lpy = 30 * abs(sinf(time));
-	//lightpos[0] = lpx;
-	//lightpos[1] = lpy;
-	/*
+	double pi = acos(-1);
+	float lpx = 30 * cosf( (time % 360)/ (float)360 * 2 * pi);
+	float lpy = 30 * sinf( (time % 360) / (float)360 * 2 * pi);
+	lightpos[0] = lpx;
+	lightpos[1] = lpy;
+	
 	if (time % 360 > 180) {
 		// night 
-		light_KS[0] = 0.0;
-		light_KS[1] = 0.0;
-		light_KS[2] = 0.0;
-		light_KS[3] = 0.0;
+		light_KS[0] = 0.5;
+		light_KS[1] = 0.5;
+		light_KS[2] = 0.5;
+		light_KS[3] = 0.5;
+		light_KD[0] = 0.5;
+		light_KD[1] = 0.5;
+		light_KD[2] = 0.5;
+		light_KD[3] = 0.5;
+		light_KA[0] = 0.5;
+		light_KA[1] = 0.5;
+		light_KA[2] = 0.5;
+		light_KA[3] = 0.5;
 	}
 	else {
 		
 	}
-	*/
+	
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_KA);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_KD);
