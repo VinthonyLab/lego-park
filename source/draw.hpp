@@ -36,45 +36,46 @@ void draw_Groud()
 
 void draw_River()
 {
-
+	RGB black = { 0.1,0.1,0.1 };
+	
 	Lego river = Lego(8.0, 0, 32.0);
-	river.setColor({ 0,0.75,1.00 });
+	river.setColor({ 0,0.4,1.00 });
 	river.move({ 12, 0, 0 });
 	river.reflash();
 
 	Lego bridge1 = Lego(1.0, 1, 6.0);
-	bridge1.setColor({ 0.55,0.14,0.00 });
+	bridge1.setColor(black);
 	bridge1.move({ 9, 0, 13 });
 	bridge1.reflash();
 
 	Lego bridge2 = Lego(1.0, 1, 6.0);
-	bridge2.setColor({ 0.55,0.14,0.00 });
+	bridge2.setColor(black);
 	bridge2.move({ 22, 0, 13 });
 	bridge2.reflash();
 
 	Lego bridge3 = Lego(1.0, 2, 6.0);
-	bridge3.setColor({ 0.55,0.14,0.00 });
+	bridge3.setColor(black);
 	bridge3.move({ 10, 0, 13 });
 	bridge3.reflash();
 
 	Lego bridge4 = Lego(1.0, 2, 6.0);
-	bridge4.setColor({ 0.55,0.14,0.00 });
+	bridge4.setColor(black);
 	bridge4.move({ 21, 0, 13 });
 	bridge4.reflash();
 
 	Lego bridge5 = Lego(1.0, 3, 6.0);
-	bridge5.setColor({ 0.55,0.14,0.00 });
+	bridge5.setColor(black);
 	bridge5.move({ 11, 0, 13 });
 	bridge5.reflash();
 
 	Lego bridge6 = Lego(1.0, 3, 6.0);
-	bridge6.setColor({ 0.55,0.14,0.00 });
+	bridge6.setColor(black);
 	bridge6.move({ 20, 0, 13 });
 	bridge6.reflash();
 
 
 	Lego bridge7 = Lego(8.0, 1, 6.0);
-	bridge7.setColor({ 0.55,0.14,0.00 });
+	bridge7.setColor(black);
 	bridge7.move({ 12, 3, 13 });
 	bridge7.reflash();
 
@@ -117,10 +118,7 @@ void draw_Pool()
 	pool5.reflash();
 
 
-	Lego pool6 = Lego(2.0, 2.0);
-	pool6.setColor(water);
-	pool6.move({ 25, 6, 24 });
-	pool6.reflash();
+	
 }
 
 
@@ -128,7 +126,7 @@ void draw_Pool()
 void draw_UM()
 {
 	RGB M = { 0.8,0.6,0.00 };
-	RGB U = { 0.8,0.2,0.00 };
+	RGB U = { 0.7,0.0,0.00 };
 
 	Lego U1 = Lego(2.0, 7, 2.0);
 	U1.setColor(U);
@@ -214,6 +212,8 @@ void draw_Tree( float x, float z)
 {
 	RGB sakura = { 0.96,0.588,0.67 };
 	RGB wood = { 0.88,0.65,0.48 };
+	RGB fountain = { 0.41,0.41,0.41 };
+	
 
 	Lego tree1 = Lego(2.0, 4, 2.0);
 	tree1.setColor(wood);
@@ -238,22 +238,22 @@ void draw_Tree( float x, float z)
 
 
 	Lego bar1 = Lego(8.0, 1.0);
-    bar1.setColor(wood);
+    bar1.setColor(fountain);
 	bar1.move({ x-3, 0, z-3 });
 	bar1.reflash();
 
 	Lego bar2 = Lego(8.0, 1.0);
-	bar2.setColor(wood);
+	bar2.setColor(fountain);
 	bar2.move({ x - 3, 0, z + 4 });
 	bar2.reflash();
 
 	Lego bar3 = Lego(1.0, 6.0);
-	bar3.setColor(wood);
+	bar3.setColor(fountain);
 	bar3.move({ x - 3, 0, z - 2 });
 	bar3.reflash();
 
 	Lego bar4 = Lego(1.0, 6.0);
-	bar4.setColor(wood);
+	bar4.setColor(fountain);
 	bar4.move({ x + 4, 0, z - 2 });
 	bar4.reflash();
 
@@ -261,7 +261,7 @@ void draw_Tree( float x, float z)
 
 void draw_Stop()
 {
-	RGB white = { 0.70,0.70,0.70 };
+	RGB white = { 0.60,0.60,0.60 };
 	Lego stop1 = Lego(1.0,6,1.0);
 	stop1.setColor(white);
 	stop1.move({ 0 , 0,  8 });
