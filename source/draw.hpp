@@ -115,6 +115,12 @@ void draw_Pool()
 	pool5.setColor(fountain);
 	pool5.move({ 25, 0, 24 });
 	pool5.reflash();
+
+
+	Lego pool6 = Lego(2.0, 2.0);
+	pool6.setColor(water);
+	pool6.move({ 25, 6, 24 });
+	pool6.reflash();
 }
 
 
@@ -230,7 +236,60 @@ void draw_Tree( float x, float z)
 	tree4.move({ x, 8, z });
 	tree4.reflash();
 
+
+	Lego bar1 = Lego(8.0, 1.0);
+    bar1.setColor(wood);
+	bar1.move({ x-3, 0, z-3 });
+	bar1.reflash();
+
+	Lego bar2 = Lego(8.0, 1.0);
+	bar2.setColor(wood);
+	bar2.move({ x - 3, 0, z + 4 });
+	bar2.reflash();
+
+	Lego bar3 = Lego(1.0, 6.0);
+	bar3.setColor(wood);
+	bar3.move({ x - 3, 0, z - 2 });
+	bar3.reflash();
+
+	Lego bar4 = Lego(1.0, 6.0);
+	bar4.setColor(wood);
+	bar4.move({ x + 4, 0, z - 2 });
+	bar4.reflash();
+
 }
+
+void draw_Stop()
+{
+	RGB white = { 0.70,0.70,0.70 };
+	Lego stop1 = Lego(1.0,6,1.0);
+	stop1.setColor(white);
+	stop1.move({ 0 , 0,  8 });
+	stop1.reflash();
+
+	Lego stop2 = Lego(1.0, 6, 1.0);
+	stop2.setColor(white);
+	stop2.move({ 0 , 0,  20 });
+	stop2.reflash();
+
+	Lego stop3 = Lego(1.0, 6, 1.0);
+	stop3.setColor(white);
+	stop3.move({ 0 , 0,  12 });
+	stop3.reflash();
+
+	Lego stop4 = Lego(1.0, 6, 1.0);
+	stop4.setColor(white);
+	stop4.move({ 0 , 0,  16 });
+	stop4.reflash();
+
+	Lego stop5 = Lego(6.0, 13.0);
+	stop5.setColor(white);
+	stop5.move({ 0 , 6,  8 });
+	stop5.reflash();
+
+
+}
+
 
 void draw_npc() {
 	LegoMan npc1 = LegoMan(LEGO2);
@@ -266,6 +325,7 @@ void draw_Park()
 	draw_UM();
 	draw_Tree(4, 26);
 	draw_Bench();
+	draw_Stop();
 }
 
 #endif
