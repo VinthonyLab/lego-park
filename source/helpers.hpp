@@ -19,18 +19,18 @@ void tinyLight(int time){
 	
 	if (time % 360 > 180) {
 		// night 
-		light_KS[0] = 0.5;
-		light_KS[1] = 0.5;
-		light_KS[2] = 0.5;
-		light_KS[3] = 0.5;
-		light_KD[0] = 0.5;
-		light_KD[1] = 0.5;
-		light_KD[2] = 0.5;
-		light_KD[3] = 0.5;
-		light_KA[0] = 0.5;
-		light_KA[1] = 0.5;
-		light_KA[2] = 0.5;
-		light_KA[3] = 0.5;
+		light_KS[0] = 0.3;
+		light_KS[1] = 0.3;
+		light_KS[2] = 0.3;
+		light_KS[3] = 0.3;
+		light_KD[0] = 0.3;
+		light_KD[1] = 0.3;
+		light_KD[2] = 0.3;
+		light_KD[3] = 0.3;
+		light_KA[0] = 0.3;
+		light_KA[1] = 0.3;
+		light_KA[2] = 0.3;
+		light_KA[3] = 0.3;
 	}
 	else {
 		

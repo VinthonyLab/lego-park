@@ -68,9 +68,6 @@
     <ClInclude Include="source\stb_image.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\EventHandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\draw.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

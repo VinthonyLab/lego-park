@@ -41,7 +41,7 @@ void displayHandler(){
 	}
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-	drawXYZ();
+	//drawXYZ();
 	draw_Park();
 	draw_npc();
 	//draw ai

@@ -237,22 +237,22 @@ void draw_Tree( float x, float z)
 	tree4.reflash();
 
 
-	Lego bar1 = Lego(8.0, 1.0);
+	Lego bar1 = Lego(8.0f, 1.0f);
     bar1.setColor(fountain);
 	bar1.move({ x-3, 0, z-3 });
 	bar1.reflash();
 
-	Lego bar2 = Lego(8.0, 1.0);
+	Lego bar2 = Lego(8.0f, 1.0f);
 	bar2.setColor(fountain);
 	bar2.move({ x - 3, 0, z + 4 });
 	bar2.reflash();
 
-	Lego bar3 = Lego(1.0, 6.0);
+	Lego bar3 = Lego(1.0f, 6.0f);
 	bar3.setColor(fountain);
 	bar3.move({ x - 3, 0, z - 2 });
 	bar3.reflash();
 
-	Lego bar4 = Lego(1.0, 6.0);
+	Lego bar4 = Lego(1.0f, 6.0f);
 	bar4.setColor(fountain);
 	bar4.move({ x + 4, 0, z - 2 });
 	bar4.reflash();
@@ -281,8 +281,7 @@ void draw_Stop()
 	stop4.setColor(white);
 	stop4.move({ 0 , 0,  16 });
 	stop4.reflash();
-
-	Lego stop5 = Lego(6.0, 13.0);
+	Lego stop5 = Lego(6.0f, 13.0f);
 	stop5.setColor(white);
 	stop5.move({ 0 , 6,  8 });
 	stop5.reflash();
