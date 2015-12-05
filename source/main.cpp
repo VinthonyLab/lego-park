@@ -31,7 +31,7 @@ enum DIRECTIONS
 int direction = LEFT;
 int LegoManRotate = -1;
 int npcRotate = 3;
-int sun_time = 1;
+long long int sun_time = 1;
 
 void displayHandler(){
 	if (sun_time % 360 >180) {
